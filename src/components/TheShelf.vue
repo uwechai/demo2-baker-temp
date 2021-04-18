@@ -3,7 +3,6 @@
   <span class="p-input-icon-left">
     <i class="pi pi-search" />
     <InputText type="text" v-model="searchText" placeholder="Search" />
-    <button @click="showCart">Click me</button>
   </span>
   <h2 class="heading">These items are our shelves right now.</h2>
 
@@ -16,21 +15,19 @@
       />
     </div>
   </div>
-      <Sidebar :visible="cartIsShown" position="right" :dismissable="true" class="p-sidebar-sm" :modal="false">
-    <button @click="showCart">Click me</button>
-    </Sidebar>
+
 </template>
 
 <script>
 import ProductCard from "./TheShelfComponents/ProductCard";
 import InputText from "primevue/inputtext";
-import Sidebar from 'primevue/sidebar';
+
 
 export default {
   components: {
     ProductCard,
     InputText,
-       Sidebar,
+  
   },
   data() {
     return {
@@ -108,10 +105,7 @@ export default {
 </script>
 
 <style scoped>
-/* .card-image {
-  height: 50px;
-  width: 50px;
-} */
+
 .grid-container {
   display: grid;
   grid-template-columns: auto auto auto;
@@ -131,5 +125,7 @@ export default {
 
 .p-input-icon-left {
   margin-right: 2rem;
+  margin-left: 30px;
 }
+
 </style>

@@ -8,7 +8,8 @@ const router = createRouter({
     routes: [
       {
         path: '/',
-        redirect: 'shelf'
+        redirect: 'shelf',
+        // props: true
       },
       {
         path: '/shelf',
