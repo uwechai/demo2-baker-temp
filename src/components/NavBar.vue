@@ -4,34 +4,19 @@
   <div :class="['box', 'p-shadow-3', 'navbar']">
     <ul>
       <li>
-        <router-link
-          to="/shelf"
-          :class="[{ 'is-selected': getIsSelected('shelf') }]"
-          @click="changeLink('shelf')"
-          >Shelf</router-link
-        >
+        <router-link to="/shelf">Shelf</router-link>
       </li>
       <li>
-        <router-link
-          to="/big-order"
-          :class="[{ 'is-selected': getIsSelected('big-order') }]"
-          @click="changeLink('big-order')"
-          >Big Order</router-link
-        >
+        <router-link to="/big-order">Big Order</router-link>
       </li>
       <li>
-        <router-link
-          to="/cart"
-          :class="[{ 'is-selected': getIsSelected('cart') }]"
-          @click="changeLink('cart')"
-          >Cart</router-link
-        >
+        <router-link to="/cart">Cart</router-link>
       </li>
     </ul>
-   
+
     <div class="about-us">
-       <div class="divider"></div>
-      <p >About Us</p>
+      <div class="divider"></div>
+      <p>About Us</p>
     </div>
   </div>
 </template>
@@ -40,28 +25,9 @@
 export default {
   components: {},
   data() {
-    return {
-      isSelected: false,
-      activeLink: "shelf", // make this dynamic , convert to a prop
-    };
+    return {};
   },
-  watch: {
-    activeLink() {},
-  },
-  computed: {
-    getRouteName() {
-      console.log(this.$route);
-      return this.$route.path;
-    },
-  },
-  methods: {
-    getIsSelected(value) {
-      return value === this.activeLink;
-    },
-    changeLink(value) {
-      this.activeLink = value;
-    },
-  },
+  methods: {},
 };
 </script>
 
@@ -101,6 +67,7 @@ li:hover {
   height: 40rem;
   position: relative;
   min-width: 230px;
+  margin-top: 40px;
 }
 
 a {
@@ -116,11 +83,11 @@ a:hover {
   font-weight: 800;
 }
 
-.is-selected {
+/* .is-selected {
   background-color: #e0e4dd;
   cursor: pointer;
   font-weight: 800;
-}
+} */
 
 .about-us {
   text-align: center;
@@ -129,10 +96,8 @@ a:hover {
   left: 85px;
 }
 
-
 .divider {
   border-top: 3px dashed #2196f3;
-  
 }
 </style>
 

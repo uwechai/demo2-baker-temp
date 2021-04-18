@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import TheShelf from './components/TheShelf';
 import NotFound from './components/NotFound';
+import TheCart from './components/TheCart';
+import TheBigOrder from './components/TheBigOrder';
 
 
 const router = createRouter({
@@ -13,7 +15,15 @@ const router = createRouter({
       },
       {
         path: '/shelf',
-        component: TheShelf
+        components: {default: TheShelf}
+      },
+      {
+        path: '/big-order',
+        components: {default: TheBigOrder}
+      },
+      {
+        path: '/cart',
+        components: {default: TheCart}
       },
 
       { path: '/:notFound(.*)', component: NotFound }
