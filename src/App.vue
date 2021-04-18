@@ -7,7 +7,7 @@
       <div class="p-col">
         <div class="box">
           <router-view v-slot="{ Component }">
-            <keep-alive >
+            <keep-alive>
               <component :is="Component" />
             </keep-alive>
           </router-view>
@@ -25,21 +25,20 @@ export default {
   name: "App",
   components: {
     NavBar,
-
   },
   data() {
     return {
       activeLink: "",
-            products: [
+      products: [
         {
           imageUrl:
             "https://live.backmomente.de/wp-content/uploads/2018/05/weizenbroetchen-1024x576.jpg.webp",
           name: "Weizenbrötchen",
-         
+
           price: 0.69,
           bigOrderPrice: 0.39,
           minimumOrder: 30,
-          canBigOrder: true
+          canBigOrder: true,
         },
         {
           imageUrl:
@@ -54,8 +53,8 @@ export default {
           price: 0.49,
           bigOrderPrice: 0.25,
           minimumOrder: 50,
-     
-          canBigOrder: true
+
+          canBigOrder: true,
         },
         {
           imageUrl:
@@ -76,12 +75,12 @@ export default {
           price: 0.69,
           bigOrderPrice: 0.29,
           minimumOrder: 50,
- 
-          canBigOrder: true
+
+          canBigOrder: true,
         },
         {
           imageUrl:
-            "https://lh3.googleusercontent.com/proxy/2vEYHUeH7PDDywQ5H117aw0JIXVz6igzwP7OnWp_TkfGb4J9RbtrOFanhoT31HK_U9ctShIE55PRPO5iYPY-1JiOD8ZlosLvam9CJvw1LXxa2KPhVw7Izn_Q8Nj1AdrojfR9PnA",
+            "https://cdn.shopify.com/s/files/1/0080/3327/1871/products/Butter_Croissant_1024x1024.jpg?v=1570055727",
           name: "Butter Croissant",
           price: 0.49,
         },
@@ -103,9 +102,20 @@ export default {
           price: 1.89,
           bigOrderPrice: 1.25,
           minimumOrder: 50,
-   
-          canBigOrder: true
+
+          canBigOrder: true,
         },
+      ],
+      orderTableData: [
+        { name: "Weizenbrötchen", quantity: 50, price: 0.99, vin: "dsad231ff" },
+        {
+          name: "Roggenbrötchen",
+          quantity: 100,
+          price: 1.56,
+          vin: "gwregre345",
+        },
+        // { name: "Dinkelbrötchen", quantity: 200, price: 0.49, vin: "h354htr" },
+        { name: "Apfeltasche", quantity: 300, price: 0.49, vin: "j6w54qgh" },
       ],
     };
   },
@@ -114,12 +124,62 @@ export default {
       products: this.products,
       activeLink: this.activeLink,
       changeLink: this.changeLink,
+      orderTableData: this.orderTableData,
+      plusOneToCart: this.plusOneToCart,
+      plusXToCart:this.plusXToCart,
     };
   },
   methods: {
     changeLink(value) {
       this.activeLink = value;
-      console.log(this.activeLink);
+      // console.log(this.activeLink);
+    },
+    plusOneToCart(name) {
+      // console.log('plusOne'+ name)
+      const orderNames = [];
+      this.orderTableData.forEach((item) => {
+        orderNames.push(item.name);
+      });
+      // console.log(orderNames);
+
+      if (orderNames.includes(name)) {
+        // don't add name just increase the quantitiy by 1
+        const indexOrder = this.orderTableData.findIndex(
+          (item) => item.name === name
+        );
+        // console.log(indexOrder);
+        const toModifyOrder = this.orderTableData[indexOrder];
+        toModifyOrder.quantity += 1;
+        // console.log(toModifyOrder);
+        this.orderTableData.splice(indexOrder, 1, toModifyOrder);
+        // console.log(this.orderTableData);
+      } else {
+        // const
+        this.orderTableData.push({ name: name, quantity: 1 });
+      }
+    },
+    plusXToCart(name, inputValue) {
+      const orderNames = [];
+      this.orderTableData.forEach((item) => {
+        orderNames.push(item.name);
+        // console.log(orderNames);
+        // console.log(orderNames.includes(name))
+        if (orderNames.includes(name)) {
+          // don't add name just increase the quantitiy by X
+          const indexOrder = this.orderTableData.findIndex(
+            (item) => item.name === name
+          );
+
+          const toModifyOrder = this.orderTableData[indexOrder];
+          toModifyOrder.quantity = toModifyOrder.quantity + inputValue;
+          console.log(toModifyOrder.quantity);
+
+          this.orderTableData.splice(indexOrder, 1, toModifyOrder);
+        } else {
+          // const
+          this.orderTableData.push({ name: name, quantity: inputValue });
+        }
+      });
     },
   },
 };
