@@ -25,9 +25,10 @@
 
           <div class="p-grid">
             <div class="p-col-12 p-md-12 p-lg-6">
-              <h2>Total = {{ totalPrice }} €</h2>
-              <h3>VAT@7%: {{vat}} €</h3>
-              <h3>Net Price: {{netPrice}} €</h3>
+              <h2>Total = {{ total }} €</h2>
+              <h3>VAT@7%: {{ vat }} €</h3>
+              <h3>Net Price: {{ netPrice }} €</h3>
+    
             </div>
             <div class="p-col-12 p-md-12 p-lg-6">
               <Payment></Payment>
@@ -47,8 +48,16 @@ import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 import Address from "./TheShelfComponents/Address";
 import Payment from "./TheShelfComponents/Payment";
+import { inject } from 'vue'
 
 export default {
+  setup(){
+    const total = inject('total');
+
+    return {
+      total
+    };
+  },
   components: {
     Card,
     DataTable,
@@ -56,25 +65,34 @@ export default {
     Address,
     Payment,
   },
-    inject:['orderTableData']
-    ,
+  inject: ["orderTableData"],
   data() {
     return {
       columns: null,
-      totalPrice: 150,
+    
     };
   },
+  watch:{
+    // total(value){
+    //   console.log(value);
+    // },
+    // orderTableData(value){
+    //   console.log(value);
+    //   console.log(this.orderTableData); 
+    // }
+  },
   computed: {
-    vat(){
-      const value = Number.parseFloat(this.totalPrice - this.netPrice).toFixed(2);
+    vat() {
+      const value = Number.parseFloat(this.total - this.netPrice).toFixed(
+        2
+      );
       return value;
     },
-    netPrice(){
-      const value = Number.parseFloat(this.totalPrice / 1.07).toFixed(2);
+    netPrice() {
+      const value = Number.parseFloat(this.total / 1.07).toFixed(2);
       return value;
-    }
-  }
-  ,
+    },
+  },
   created() {
     this.columns = [
       { field: "name", header: "Product Name" },
@@ -83,12 +101,11 @@ export default {
     ];
     // console.log(this.orderTableData);
   },
-
 };
 </script>
 
 <style scoped>
 h1 {
-  text-align: center;
+  text-align: left;
 }
 </style>

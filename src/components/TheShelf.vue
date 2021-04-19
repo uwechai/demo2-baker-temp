@@ -39,9 +39,6 @@ export default {
       searchText:''
     };
   },
-  methods: {
-
-  },
 };
 </script>
 

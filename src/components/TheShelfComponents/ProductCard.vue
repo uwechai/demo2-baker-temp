@@ -83,7 +83,7 @@ export default {
       // console.log(this.$refs.Weizenbrötchen)
       // console.log(name, quantity);
       // console.log(this.inputValue)  // how the hell does this work!!!
-      console.log(inputValue);
+      // console.log(inputValue);
       if(inputValue === null) return;
       this.plusXToCart(name, inputValue);
       this.$toast.add({

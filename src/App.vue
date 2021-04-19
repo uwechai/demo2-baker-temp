@@ -2,6 +2,7 @@
   <main>
     <div class="p-grid">
       <div class="p-col-2">
+        <h2>{{ totalPrice }}</h2>
         <NavBar></NavBar>
       </div>
       <div class="p-col">
@@ -20,12 +21,20 @@
 
 <script>
 import NavBar from "./components/NavBar";
+import { provide, ref } from 'vue';
 
 export default {
   name: "App",
   components: {
     NavBar,
   },
+  setup () {
+    const totalPrice= ref(0);
+    provide('total', totalPrice);
+      return {
+        totalPrice
+      }
+    },
   data() {
     return {
       activeLink: "",
@@ -37,7 +46,7 @@ export default {
 
           price: 0.69,
           bigOrderPrice: 0.39,
-          minimumOrder: 30,
+          minimumOrder: 70,
           canBigOrder: true,
         },
         {
@@ -107,15 +116,15 @@ export default {
         },
       ],
       orderTableData: [
-        { name: "Weizenbrötchen", quantity: 50, price: 0.99, vin: "dsad231ff" },
-        {
-          name: "Roggenbrötchen",
-          quantity: 100,
-          price: 1.56,
-          vin: "gwregre345",
-        },
-        // { name: "Dinkelbrötchen", quantity: 200, price: 0.49, vin: "h354htr" },
-        { name: "Apfeltasche", quantity: 300, price: 0.49, vin: "j6w54qgh" },
+        // { name: "Weizenbrötchen", quantity: 50, price: 0.99 },
+        // {
+        //   name: "Roggenbrötchen",
+        //   quantity: 100,
+        //   price: 1.56,
+        //   vin: "gwregre345",
+        // },
+        // // { name: "Dinkelbrötchen", quantity: 200, price: 0.49  },
+        // { name: "Apfeltasche", quantity: 300, price: 0.49 },
       ],
     };
   },
@@ -126,7 +135,8 @@ export default {
       changeLink: this.changeLink,
       orderTableData: this.orderTableData,
       plusOneToCart: this.plusOneToCart,
-      plusXToCart:this.plusXToCart,
+      plusXToCart: this.plusXToCart,
+      // total:  this.totalPrice,
     };
   },
   methods: {
@@ -141,6 +151,9 @@ export default {
         orderNames.push(item.name);
       });
       // console.log(orderNames);
+      const orderedProductData = this.products.find(
+        (item) => item.name === name
+      );
 
       if (orderNames.includes(name)) {
         // don't add name just increase the quantitiy by 1
@@ -151,35 +164,75 @@ export default {
         const toModifyOrder = this.orderTableData[indexOrder];
         toModifyOrder.quantity += 1;
         // console.log(toModifyOrder);
-        this.orderTableData.splice(indexOrder, 1, toModifyOrder);
+        // this.orderTableData.splice(indexOrder, 1, toModifyOrder);
         // console.log(this.orderTableData);
+
+        if (toModifyOrder.quantity >= orderedProductData.minimumOrder) {
+          toModifyOrder.price = orderedProductData.bigOrderPrice;
+        } else {
+          // do nothing or overwrite
+          toModifyOrder.price = orderedProductData.price;
+        }
       } else {
-        // const
-        this.orderTableData.push({ name: name, quantity: 1 });
+        this.orderTableData.push({
+          name: name,
+          quantity: 1,
+          price: orderedProductData.price,
+        });
       }
+
+      this.updateTotal(this.orderTableData);
     },
     plusXToCart(name, inputValue) {
       const orderNames = [];
       this.orderTableData.forEach((item) => {
         orderNames.push(item.name);
-        // console.log(orderNames);
-        // console.log(orderNames.includes(name))
-        if (orderNames.includes(name)) {
-          // don't add name just increase the quantitiy by X
-          const indexOrder = this.orderTableData.findIndex(
-            (item) => item.name === name
-          );
-
-          const toModifyOrder = this.orderTableData[indexOrder];
-          toModifyOrder.quantity = toModifyOrder.quantity + inputValue;
-          console.log(toModifyOrder.quantity);
-
-          this.orderTableData.splice(indexOrder, 1, toModifyOrder);
-        } else {
-          // const
-          this.orderTableData.push({ name: name, quantity: inputValue });
-        }
       });
+      const orderedProductData = this.products.find(
+        (item) => item.name === name
+      );
+      // console.log(orderNames);
+
+      if (orderNames.includes(name)) {
+        // don't add name just increase the quantitiy by X
+        const indexOrder = this.orderTableData.findIndex(
+          (item) => item.name === name
+        );
+        // console.log(indexOrder);
+
+        const toModifyOrder = this.orderTableData[indexOrder];
+        toModifyOrder.quantity = toModifyOrder.quantity + inputValue;
+        // console.log(toModifyOrder.quantity);
+
+        // console.log(orderedProductData);
+        if (toModifyOrder.quantity >= orderedProductData.minimumOrder) {
+          // console.log('change price');
+          toModifyOrder.price = orderedProductData.bigOrderPrice;
+        } else {
+          toModifyOrder.price = orderedProductData.price;
+        }
+      } else {
+        this.orderTableData.push({
+          name: name,
+          quantity: inputValue,
+          price: orderedProductData.price,
+        });
+      }
+      this.updateTotal(this.orderTableData);
+    },
+    updateTotal(tableData) {
+      // console.log(tableData);
+      const subtotalList = [];
+      // console.log(this.totalPrice);
+      tableData.forEach(function (item) {
+        const subtotal = item.quantity * item.price;
+        subtotalList.push(subtotal);
+      });
+      const sum = subtotalList.reduce((a, b) => a + b, 0);
+      // console.log(total);
+      console.log(this.totalPrice);
+      this.totalPrice = sum;
+      console.log(this.totalPrice);
     },
   },
 };
