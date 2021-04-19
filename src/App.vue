@@ -2,7 +2,7 @@
   <main>
     <div class="p-grid">
       <div class="p-col-2">
-        <h2>{{ totalPrice }}</h2>
+
         <NavBar></NavBar>
       </div>
       <div class="p-col">

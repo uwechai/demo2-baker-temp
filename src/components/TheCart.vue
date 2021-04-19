@@ -5,7 +5,9 @@
     <div class="p-col-12 p-md-12 p-lg-6">
       <Card>
         <template #content>
-          <div>
+
+          <div v-if="total === 0"> <h2>No Items in the Cart yet!</h2> </div>
+          <div v-else>
             <DataTable :value="orderTableData" responsiveLayout="scroll">
               <Column
                 v-for="col of columns"
