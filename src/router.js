@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import TheShelf from './components/TheShelf';
+import TheShelf from './components/TheShelf/TheShelf';
 import NotFound from './components/NotFound';
-import TheCart from './components/TheCart';
-import TheBigOrder from './components/TheBigOrder';
+import TheCart from './components/TheCart/TheCart';
+import TheBigOrder from './components/TheBigOrder/TheBigOrder';
 
 
 const router = createRouter({

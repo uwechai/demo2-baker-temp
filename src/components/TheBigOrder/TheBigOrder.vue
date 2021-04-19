@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import ProductCard from "./TheShelfComponents/ProductCard";
+import ProductCard from "../reusables/ProductCard";
 // import Gridder3xn from "./Gridder3xn";
 export default {
     inject:['products'],

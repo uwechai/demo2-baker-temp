@@ -27,7 +27,7 @@
 
           <div class="p-grid">
             <div class="p-col-12 p-md-12 p-lg-6">
-              <h2>Total = {{ total }} €</h2>
+              <h2>Total = {{ totalDisplay }} €</h2>
               <h3>VAT@7%: {{ vat }} €</h3>
               <h3>Net Price: {{ netPrice }} €</h3>
     
@@ -48,8 +48,8 @@
 import Card from "primevue/card";
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
-import Address from "./TheShelfComponents/Address";
-import Payment from "./TheShelfComponents/Payment";
+import Address from "./Address";
+import Payment from "./Payment";
 import { inject } from 'vue'
 
 export default {
@@ -84,6 +84,11 @@ export default {
     // }
   },
   computed: {
+    totalDisplay(){
+      return Number.parseFloat(this.total).toFixed(
+        2
+      );
+    },
     vat() {
       const value = Number.parseFloat(this.total - this.netPrice).toFixed(
         2

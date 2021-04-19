@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import ProductCard from "./TheShelfComponents/ProductCard";
+import ProductCard from "../reusables/ProductCard";
 import InputText from "primevue/inputtext";
 // import Gridder3xn from "./Gridder3xn";
 

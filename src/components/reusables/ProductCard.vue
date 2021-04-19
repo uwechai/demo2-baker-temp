@@ -2,7 +2,7 @@
   <Toast position="bottom-right" group="br" />
   <Card>
     <template #header>
-      <img :alt="productData.name" :src="productData.imageUrl" />
+      <img :src="productData.imageUrl" />
     </template>
     <template #title> {{ productData.name }} </template>
 
@@ -62,12 +62,17 @@ export default {
   //   mounted() {
   //     console.log(this.$props);
   //   },
-  data(){
+  data() {
     return {
-      inputValue: null
+      inputValue: null,
+      // imageIsLoaded: false,
     };
   },
   methods: {
+    // onImageLoaded() {
+    //   this.imageIsLoaded = true;
+    //   console.log(this.imageIsLoaded);
+    // },
     add1ToCart(name) {
       this.plusOneToCart(name);
       this.$toast.add({
@@ -84,11 +89,11 @@ export default {
       // console.log(name, quantity);
       // console.log(this.inputValue)  // how the hell does this work!!!
       // console.log(inputValue);
-      if(inputValue === null) return;
+      if (inputValue === null) return;
       this.plusXToCart(name, inputValue);
       this.$toast.add({
         severity: "success",
-        summary: "Added "+inputValue+" " + name + " to Cart",
+        summary: "Added " + inputValue + " " + name + " to Cart",
         group: "br",
         life: 1500,
       });
@@ -101,6 +106,20 @@ export default {
 img {
   height: 240px;
   width: 100%;
+}
+.wrapper {
+  background: slategrey;
+}
+.fade-enter-active {
+  transition: opacity 3s ease-in-out;
+}
+
+.fade-enter-to {
+  opacity: 1;
+}
+
+.fade-enter {
+  opacity: 0;
 }
 </style>
 
