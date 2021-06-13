@@ -1,3 +1,3 @@
 <template>
-    <h2>not found</h2>
+    <h2>Sorry this page was not found</h2>
 </template>

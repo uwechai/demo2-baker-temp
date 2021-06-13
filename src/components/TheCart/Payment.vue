@@ -1,12 +1,13 @@
 <template>
   <h2>Pay With</h2>
-
   <Button :class="['paypal-class']"
     ><span>Pay</span><span>Pal</span>
     <i class="pi pi-paypal pay" style="fontsize: 2rem"></i
   ></Button>
   <Button :class="['sofort-class']">SOFORT Payment</Button>
-  <Button :class="['bitcoin-class', ]">Bitcoin <i class="fab fa-bitcoin fa-lg"></i></Button>
+  <Button :class="['bitcoin-class']"
+    >Ether <i class="fab fa-ethereum fa-lg"></i
+  ></Button>
 </template>
 
 
@@ -28,7 +29,7 @@ export default {
   display: block;
   padding: 1rem;
   width: 17rem;
-  border:1px solid #fff;
+  border: 1px solid #fff;
   border-radius: 5px;
 }
 
@@ -37,7 +38,7 @@ export default {
   display: block;
   width: 17rem;
   padding: 1rem;
-  border:1px solid #fff;
+  border: 1px solid #fff;
   border-radius: 5px;
 }
 
@@ -46,9 +47,9 @@ export default {
   display: block;
   width: 17rem;
   padding: 1rem;
-  color: #8C239E;
+  color: #8c239e;
   background-color: #d0ef84;
-  border:1px solid #fff;
+  border: 1px solid #fff;
   border-radius: 5px;
 }
 </style>

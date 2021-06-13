@@ -5,8 +5,7 @@
     <div class="p-col-12 p-md-12 p-lg-6">
       <Card>
         <template #content>
-
-          <div v-if="total === 0"> <h2>No Items in the Cart yet!</h2> </div>
+          <div v-if="total === 0"><h2>No Items in the Cart yet!</h2></div>
           <div v-else>
             <DataTable :value="orderTableData" responsiveLayout="scroll">
               <Column
@@ -24,13 +23,11 @@
       <Card>
         <template #content>
           <Address></Address>
-
           <div class="p-grid">
             <div class="p-col-12 p-md-12 p-lg-6">
               <h2>Total = {{ totalDisplay }} €</h2>
               <h3>VAT@7%: {{ vat }} €</h3>
               <h3>Net Price: {{ netPrice }} €</h3>
-    
             </div>
             <div class="p-col-12 p-md-12 p-lg-6">
               <Payment></Payment>
@@ -50,15 +47,10 @@ import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 import Address from "./Address";
 import Payment from "./Payment";
-import { inject } from 'vue'
 
 export default {
-  setup(){
-    const total = inject('total');
-
-    return {
-      total
-    };
+  setup() {
+    return {};
   },
   components: {
     Card,
@@ -67,32 +59,25 @@ export default {
     Address,
     Payment,
   },
-  inject: ["orderTableData"],
+
   data() {
     return {
       columns: null,
-    
     };
   },
-  watch:{
-    // total(value){
-    //   console.log(value);
-    // },
-    // orderTableData(value){
-    //   console.log(value);
-    //   console.log(this.orderTableData); 
-    // }
-  },
   computed: {
-    totalDisplay(){
-      return Number.parseFloat(this.total).toFixed(
-        2
-      );
+    orderTableData() {
+      console.log(this.$store.getters.orderTableData);
+      return this.$store.getters.orderTableData;
+    },
+    total() {
+      return this.$store.getters.total;
+    },
+    totalDisplay() {
+      return Number.parseFloat(this.total).toFixed(2);
     },
     vat() {
-      const value = Number.parseFloat(this.total - this.netPrice).toFixed(
-        2
-      );
+      const value = Number.parseFloat(this.total - this.netPrice).toFixed(2);
       return value;
     },
     netPrice() {

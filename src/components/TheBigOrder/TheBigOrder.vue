@@ -4,34 +4,29 @@
   <div class="grid-container">
     <div
       class="grid-item"
-      v-for="(product, index) in products.filter((item)=>item.canBigOrder === true)"
+      v-for="(product, index) in products.filter(
+        (item) => item.canBigOrder === true
+      )"
       :key="index"
     >
-      <ProductCard
-        :productData="product"
-        :isBigOrder="true"
-      />
+      <ProductCard :productData="product" :isBigOrder="true" />
     </div>
   </div>
-
-
 </template>
 
 <script>
 import ProductCard from "../reusables/ProductCard";
 // import Gridder3xn from "./Gridder3xn";
 export default {
-    inject:['products'],
   components: {
     ProductCard,
     // Gridder3xn,
   },
-
-  data() {
-    return {
-
-    };
-  },
+  computed:{
+    products(){
+      return this.$store.getters.products;
+    }
+  }
 };
 </script>
 

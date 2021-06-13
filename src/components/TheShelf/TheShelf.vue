@@ -1,5 +1,4 @@
 <template>
-
   <div class="top-section"></div>
   <span class="p-input-icon-left">
     <i class="pi pi-search" />
@@ -9,14 +8,9 @@
 
   <div class="grid-container">
     <div class="grid-item" v-for="(product, index) in products" :key="index">
-      <ProductCard
-        :productData="product"
-        :isBigOrder="false"
-      />
+      <ProductCard :productData="product" :isBigOrder="false" />
     </div>
   </div>
-
-
 </template>
 
 <script>
@@ -24,26 +18,26 @@ import ProductCard from "../reusables/ProductCard";
 import InputText from "primevue/inputtext";
 // import Gridder3xn from "./Gridder3xn";
 
-
 export default {
-  name: 'TheShelf',
-  inject:['products'],
   components: {
     ProductCard,
     InputText,
     // Gridder3xn,
-  
   },
   data() {
     return {
-      searchText:''
+      searchText: "",
     };
+  },
+  computed: {
+    products() {
+      return this.$store.getters.products;
+    },
   },
 };
 </script>
 
 <style scoped>
-
 .grid-container {
   display: grid;
   grid-template-columns: auto auto auto;
@@ -68,5 +62,4 @@ export default {
 .top-section {
   margin-top: 19.92px;
 }
-
 </style>

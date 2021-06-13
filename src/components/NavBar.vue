@@ -1,10 +1,11 @@
 <template>
   <h2>MeinBayernBäger</h2>
+  <h3>{{ activeLink }}</h3>
 
   <div :class="['box', 'p-shadow-3', 'navbar']">
     <ul>
       <li>
-        <router-link to="/shelf">Shelf</router-link>
+        <router-link to="/shelf" exact>Shelf</router-link>
       </li>
       <li>
         <router-link to="/big-order">Big Order</router-link>
@@ -22,12 +23,17 @@
 </template>
 
 <script>
+// import { computed } from "vue";
+// import { useRoute } from "vue-router";
 export default {
   components: {},
-  data() {
-    return {};
+  setup() {
+    // const route = useRoute();
+    // console.log(route);
+    // const activeLink = computed(() => route.name);
+    return {
+    };
   },
-  methods: {},
 };
 </script>
 
@@ -78,16 +84,16 @@ a {
 }
 
 a:hover {
-  background-color: #e0e4dd;
+  background-color: #dbe3e6;
   cursor: pointer;
   font-weight: 800;
 }
 
-/* .is-selected {
-  background-color: #e0e4dd;
+.router-link-active {
+  background-color: #dbe3e6;
   cursor: pointer;
   font-weight: 800;
-} */
+}
 
 .about-us {
   text-align: center;

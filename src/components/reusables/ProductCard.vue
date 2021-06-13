@@ -7,8 +7,10 @@
     <template #title> {{ productData.name }} </template>
 
     <template v-if="isBigOrder" #content
-      >Minimum order quantity {{ productData.minimumOrder }} pieces</template
-    >
+      >Minimum order quantity {{ productData.minimumOrder }} pieces @{{
+        productData.bigOrderPrice
+      }}€/pc
+    </template>
 
     <template #footer>
       <div v-if="isBigOrder">
@@ -26,7 +28,7 @@
           <Button
             icon="pi pi-shopping-cart"
             label="Add to cart"
-            @click="addXToCart(productData.name, inputValue)"
+            @click="addToCart(productData.name, inputValue)"
             class="p-button-success"
           />
         </div>
@@ -36,7 +38,7 @@
         <Button
           icon="pi pi-shopping-cart"
           label="+1 to cart"
-          @click="add1ToCart(productData.name)"
+          @click="addToCart(productData.name, 1)"
         />
       </div>
     </template>
@@ -58,39 +60,16 @@ export default {
     InputNumber,
   },
   props: ["productData", "isBigOrder"],
-  inject: ["plusOneToCart", "plusXToCart"],
-  //   mounted() {
-  //     console.log(this.$props);
-  //   },
+
   data() {
     return {
       inputValue: null,
-      // imageIsLoaded: false,
     };
   },
   methods: {
-    // onImageLoaded() {
-    //   this.imageIsLoaded = true;
-    //   console.log(this.imageIsLoaded);
-    // },
-    add1ToCart(name) {
-      this.plusOneToCart(name);
-      this.$toast.add({
-        severity: "success",
-        summary: "Added 1 " + name + " to Cart",
-        group: "br",
-        life: 1500,
-      });
-    },
-    addXToCart(name, inputValue) {
-      // if (quantity === undefined) return;
-      // console.log(this.$refs.myRefInput.value);
-      // console.log(this.$refs.Weizenbrötchen)
-      // console.log(name, quantity);
-      // console.log(this.inputValue)  // how the hell does this work!!!
-      // console.log(inputValue);
+    addToCart(name, inputValue) {
       if (inputValue === null) return;
-      this.plusXToCart(name, inputValue);
+      this.$store.dispatch("addToCart",  {name, inputValue} );
       this.$toast.add({
         severity: "success",
         summary: "Added " + inputValue + " " + name + " to Cart",
