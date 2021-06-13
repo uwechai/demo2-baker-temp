@@ -20,39 +20,13 @@
 
 <script>
 import NavBar from "./components/NavBar";
-// import { provide, ref } from "vue";
 
 export default {
   name: "App",
   components: {
     NavBar,
   },
-  setup() {
 
-    return {
-
-    };
-  },
-  data() {
-    return {
-      activeLink: "",
-
-  
-    };
-  },
-  provide() {
-    return {
-      activeLink: this.activeLink,
-      changeLink: this.changeLink,
-    };
-  },
-  methods: {
-    changeLink(value) {
-      this.activeLink = value;
-    },
-
-
-  },
 };
 </script>
 

@@ -16,16 +16,19 @@
 
 <script>
 import ProductCard from "../reusables/ProductCard";
-// import Gridder3xn from "./Gridder3xn";
+import {computed} from 'vue';
+import {useStore} from 'vuex';
+
 export default {
   components: {
     ProductCard,
-    // Gridder3xn,
   },
-  computed:{
-    products(){
-      return this.$store.getters.products;
-    }
+  setup(){
+    const store = useStore();
+    const products = computed(()=>store.getters.products);
+    return {
+      products
+    };
   }
 };
 </script>

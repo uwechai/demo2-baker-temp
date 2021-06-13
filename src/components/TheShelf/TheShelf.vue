@@ -16,24 +16,26 @@
 <script>
 import ProductCard from "../reusables/ProductCard";
 import InputText from "primevue/inputtext";
-// import Gridder3xn from "./Gridder3xn";
+import { ref, computed } from "vue";
+import { useStore } from "vuex";
 
 export default {
   components: {
     ProductCard,
     InputText,
-    // Gridder3xn,
   },
-  data() {
+  setup() {
+    const searchText = ref("");
+    
+    const store = useStore();
+    const products = computed(() => store.getters.products);
+
     return {
-      searchText: "",
+      searchText,
+      products
     };
   },
-  computed: {
-    products() {
-      return this.$store.getters.products;
-    },
-  },
+
 };
 </script>
 

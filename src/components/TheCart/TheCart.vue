@@ -39,19 +39,16 @@
   </div>
 </template>
 
-
-
 <script>
 import Card from "primevue/card";
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 import Address from "./Address";
 import Payment from "./Payment";
+import { useStore } from "vuex";
+import { ref, computed } from "vue";
 
 export default {
-  setup() {
-    return {};
-  },
   components: {
     Card,
     DataTable,
@@ -60,38 +57,37 @@ export default {
     Payment,
   },
 
-  data() {
-    return {
-      columns: null,
-    };
-  },
-  computed: {
-    orderTableData() {
-      console.log(this.$store.getters.orderTableData);
-      return this.$store.getters.orderTableData;
-    },
-    total() {
-      return this.$store.getters.total;
-    },
-    totalDisplay() {
-      return Number.parseFloat(this.total).toFixed(2);
-    },
-    vat() {
-      const value = Number.parseFloat(this.total - this.netPrice).toFixed(2);
-      return value;
-    },
-    netPrice() {
-      const value = Number.parseFloat(this.total / 1.07).toFixed(2);
-      return value;
-    },
-  },
-  created() {
-    this.columns = [
+  setup() {
+    const store = useStore();
+
+    // setup DataTable
+    const orderTableData = computed(() => store.getters.orderTableData);
+    const columns = ref([
       { field: "name", header: "Product Name" },
       { field: "quantity", header: "Quantity" },
       { field: "price", header: "Price" },
-    ];
-    // console.log(this.orderTableData);
+    ]);
+
+    // totaling calculations
+    const total = computed(() => store.getters.total);
+    const totalDisplay = computed(() =>
+      Number.parseFloat(total.value).toFixed(2)
+    );
+    const netPrice = computed(() =>
+      Number.parseFloat(total.value / 1.07).toFixed(2)
+    );
+    const vat = computed(() =>
+      Number.parseFloat(total.value - netPrice.value).toFixed(2)
+    );
+
+    return {
+      orderTableData,
+      columns,
+      total,
+      totalDisplay,
+      vat,
+      netPrice,
+    };
   },
 };
 </script>

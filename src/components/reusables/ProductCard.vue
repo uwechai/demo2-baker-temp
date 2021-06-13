@@ -51,6 +51,10 @@ import Card from "primevue/card";
 import Tag from "primevue/tag";
 import Toast from "primevue/toast";
 import InputNumber from "primevue/inputnumber";
+import { ref } from "vue";
+import { useStore } from "vuex";
+import { useToast } from "primevue/usetoast";
+
 export default {
   components: {
     Button,
@@ -61,22 +65,25 @@ export default {
   },
   props: ["productData", "isBigOrder"],
 
-  data() {
-    return {
-      inputValue: null,
-    };
-  },
-  methods: {
-    addToCart(name, inputValue) {
+  setup() {
+    const inputValue = ref(null);
+
+    const store = useStore();
+    const toast = useToast();
+    function addToCart(name, inputValue) {
       if (inputValue === null) return;
-      this.$store.dispatch("addToCart",  {name, inputValue} );
-      this.$toast.add({
+      store.dispatch("addToCart", { name, inputValue });
+      toast.add({
         severity: "success",
         summary: "Added " + inputValue + " " + name + " to Cart",
         group: "br",
         life: 1500,
       });
-    },
+    }
+    return {
+      inputValue,
+      addToCart,
+    };
   },
 };
 </script>

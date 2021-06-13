@@ -1,6 +1,5 @@
 <template>
   <h2>MeinBayernBäger</h2>
-  <h3>{{ activeLink }}</h3>
 
   <div :class="['box', 'p-shadow-3', 'navbar']">
     <ul>
@@ -22,20 +21,6 @@
   </div>
 </template>
 
-<script>
-// import { computed } from "vue";
-// import { useRoute } from "vue-router";
-export default {
-  components: {},
-  setup() {
-    // const route = useRoute();
-    // console.log(route);
-    // const activeLink = computed(() => route.name);
-    return {
-    };
-  },
-};
-</script>
 
 <style scoped>
 ul {
